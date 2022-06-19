@@ -36,10 +36,10 @@ function homePage() {
     headerSection.classList.remove('header-container--long');
     headerSection.style.background = '';
     arrowBtn.classList.add('inactive');
-    arrowBtn.classList.remove('.header-arrow--white');
+    arrowBtn.classList.remove('header-arrow--white');
     headerTitle.classList.remove('inactive');
     headerCategoryTitle.classList.add('inactive');
-    searchForm.classList.remove('inactive');
+    //searchForm.classList.remove('inactive');
 
     trendingPreviewSection.classList.remove('inactive');
     categoriesPreviewSection.classList.remove('inactive');
@@ -56,15 +56,24 @@ function categoriesPage() {
     headerSection.classList.remove('header-container--long');
     headerSection.style.background = '';
     arrowBtn.classList.remove('inactive');
-    arrowBtn.classList.remove('.header-arrow--white');
+    arrowBtn.classList.remove('header-arrow--white');
     headerTitle.classList.add('inactive');
     headerCategoryTitle.classList.remove('inactive');
-    searchForm.classList.add('inactive');
+    //searchForm.classList.add('inactive');
 
     trendingPreviewSection.classList.add('inactive');
     categoriesPreviewSection.classList.add('inactive');
     genericSection.classList.remove('inactive');
     movieDetailSection.classList.add('inactive');
+
+    //['#category', 'id-name'] => separando el url para covertirlo en un array
+    const [_, categoryData] = location.hash.split('=');
+    const [categoryId, categoryName] = categoryData.split('-');
+
+    //cambiando el título de acuerdo a la categoría seleccionada
+    headerCategoryTitle.innerHTML = categoryName;
+
+    getMoviesByCategory(categoryId);
 }
 
 function movieDetailsPage() {
@@ -73,7 +82,7 @@ function movieDetailsPage() {
     headerSection.classList.add('header-container--long');
     /* headerSection.style.background = ''; */
     arrowBtn.classList.remove('inactive');
-    arrowBtn.classList.add('.header-arrow--white');
+    arrowBtn.classList.add('header-arrow--white');
     headerTitle.classList.add('inactive');
     headerCategoryTitle.classList.add('inactive');
     searchForm.classList.add('inactive');
@@ -90,9 +99,9 @@ function searchPage() {
     headerSection.classList.remove('header-container--long');
     headerSection.style.background = '';
     arrowBtn.classList.remove('inactive');
-    arrowBtn.classList.remove('.header-arrow--white');
+    arrowBtn.classList.remove('header-arrow--white');
     headerTitle.classList.add('inactive');
-    headerCategoryTitle.classList.remove('inactive');
+    headerCategoryTitle.classList.add('inactive');
     searchForm.classList.remove('inactive');
 
     trendingPreviewSection.classList.add('inactive');
@@ -107,10 +116,10 @@ function trendsPage() {
     headerSection.classList.remove('header-container--long');
     headerSection.style.background = '';
     arrowBtn.classList.remove('inactive');
-    arrowBtn.classList.remove('.header-arrow--white');
+    arrowBtn.classList.remove('header-arrow--white');
     headerTitle.classList.add('inactive');
     headerCategoryTitle.classList.remove('inactive');
-    searchForm.classList.add('inactive');
+    //searchForm.classList.add('inactive');
 
     trendingPreviewSection.classList.add('inactive');
     categoriesPreviewSection.classList.add('inactive');
