@@ -10,7 +10,7 @@ const api = axios.create({
 });
 
 //función para lista de películas en tendencia
-async function getTrendingMovies() {
+async function getTrendingMoviesHome() {
     const {data} = await api('/trending/movie/day');
     const movies = data.results;
     console.log({data, movies});
@@ -32,7 +32,7 @@ async function getTrendingMovies() {
 }
 
 //función para lista de categorías
-async function getCategoriesMovies() {
+async function getCategoriesMoviesHome() {
     const {data} = await api('/genre/movie/list');
     const categories = data.genres;
     console.log({data, categories});
@@ -50,8 +50,7 @@ async function getCategoriesMovies() {
 
         categoryTitle.appendChild(categoryTitleText);
         categoryContainer.appendChild(categoryTitle);
-        previewCategoryContainer.appendChild(categoryTitle);
+        previewCategoryContainer.appendChild(categoryContainer);
     });
 }
-getTrendingMovies();
-getCategoriesMovies();
+
