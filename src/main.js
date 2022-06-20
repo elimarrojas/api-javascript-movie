@@ -9,6 +9,49 @@ const api = axios.create({
     },
 });
 
+//Helpers
+/* function createMovies(movies, container) {
+    //limpiando contenido para solucionar carga duplicada
+    container.innerHTML = '';
+
+    movies.forEach(movie => {   
+        const movieContainer = document.createElement('div');
+        movieContainer.classList.add('movie-container');
+
+        const movieImg = document.createElement('img');
+        movieImg.classList.add('movie-img');
+        movieImg.setAttribute('alt', movie.title);
+        movieImg.setAttribute('src', 'https://image.tmdb.org/t/p/w300' + movie.poster_path);
+        
+        movieContainer.appendChild(movieImg);
+        container.appendChild(movieContainer);
+    });
+} */
+
+function createCategories(categories, container) {
+    container.innerHTML = '';
+
+    categories.forEach(category => {
+        const categoriesPreviewList = document.querySelector('.categoriesPreview-list');
+
+        const categoryContainer = document.createElement('div');
+        categoryContainer.classList.add('category-container');
+
+        const categoryTitle = document.createElement('h3');
+        categoryTitle.classList.add('category-title');
+        categoryTitle.setAttribute('id', 'id' + category.id);
+        categoryTitle.addEventListener('click', () => {
+            location.hash = `category=${category.id}-${category.name}`;
+        });
+        const categoryTitleText = document.createTextNode(category.name);
+
+        categoryTitle.appendChild(categoryTitleText);
+        categoryContainer.appendChild(categoryTitle);
+        container.appendChild(categoryContainer);
+    });
+}
+
+//Llamados a la API
 //función para lista de películas en tendencia
 async function getTrendingMoviesHome() {
     const {data} = await api('/trending/movie/day');
@@ -31,6 +74,8 @@ async function getTrendingMoviesHome() {
         movieContainer.appendChild(movieImg);
         trendingMoviesPreviewList.appendChild(movieContainer);
     });
+
+    //createMovies(movies, trendingMoviesPreviewList);
 }
 
 //función para lista de categorías
@@ -39,27 +84,7 @@ async function getCategoriesMoviesHome() {
     const categories = data.genres;
     console.log({data, categories});
 
-    //limpiando contenido para solucionar carga duplicada
-    categoriesPreviewList.innerHTML = "";
-
-    categories.forEach(category => {
-        const categoriesPreviewList = document.querySelector('.categoriesPreview-list');
-
-        const categoryContainer = document.createElement('div');
-        categoryContainer.classList.add('category-container');
-
-        const categoryTitle = document.createElement('h3');
-        categoryTitle.classList.add('category-title');
-        categoryTitle.setAttribute('id', 'id' + category.id);
-        categoryTitle.addEventListener('click', () => {
-            location.hash = `category=${category.id}-${category.name}`;
-        });
-        const categoryTitleText = document.createTextNode(category.name);
-
-        categoryTitle.appendChild(categoryTitleText);
-        categoryContainer.appendChild(categoryTitle);
-        categoriesPreviewList.appendChild(categoryContainer);
-    });
+    createCategories(categories, categoriesPreviewList);    
 }
 
 async function getMoviesByCategory(id) {
@@ -85,4 +110,6 @@ async function getMoviesByCategory(id) {
         movieContainer.appendChild(movieImg);
         genericSection.appendChild(movieContainer);
     });
+
+    //createMovies(movies, genericSection);
 }
